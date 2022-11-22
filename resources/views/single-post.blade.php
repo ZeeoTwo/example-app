@@ -1,5 +1,4 @@
 @extends('layouts.app')
-<h1>Welcom in view 'posts_of_index' </h1>
 
 @section('content')
 <p class="text-red-700 text-center"> Tytul: {{ $post['title'] }}</p>

@@ -9,21 +9,18 @@ class PublicationController extends Controller
 {
     public function index()
     {
-        $publications = Publication::all();
-        return view('posts', [
-            'publications' => $publications
-        ]);
+        $publications = Publication::orderBy('created_at','desc')->limit(1);
+
+        return view('posts', ['publications' => $publications]);
     }
-    public function show(int $id)
-    {
-        // Znajdź modele o wskazanym ID i zwróć tylko jeden, a jak go nie znajdziesz to zwróć błąd 404.
-        $publication = Publication::where('id', $id)->firstOrFail();
-    
+
+
+    public function show(Publication $publication)
+    {   
         return view('single-post', [
             'post' => $publication
         ]);
     }
     
-
 
 }
