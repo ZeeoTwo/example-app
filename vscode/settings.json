@@ -1,0 +1,11 @@
+{
+    // Mainly for static files
+    "liveServer.settings.useWebExt": true,
+
+    // to another URL (which Live Sever starts).
+    "liveServer.settings.proxy": {
+        "enable": true,                             //   i. enabled
+        "baseUri": "http://localhost:80/example-app",                             //  ii. workspace
+        "proxyUri": "http://127.0.0.1:5500/" // iii. actual address
+    },
+}

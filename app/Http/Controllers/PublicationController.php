@@ -1,26 +1,43 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Publication;
-
+use App\Models\User;
 
 class PublicationController extends Controller
 {
     public function index()
     {
-        $publications = Publication::orderBy('created_at','desc')->limit(1);
+        $publications = Publication::orderBy('created_at', 'desc')->get();
 
-        return view('posts', ['publications' => $publications]);
+        return view('post.index', ['publications' => $publications]);
     }
 
-
     public function show(Publication $publication)
-    {   
-        return view('single-post', [
+    {
+        return view('post.view', [
             'post' => $publication
         ]);
     }
-    
 
+    public function create()
+    {
+        $users = User::all();
+
+        return view('post.form',['users' => $users]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'author_id' => 'required'
+        ]);
+        $newPost = new Publication($data);
+        $newPost->save();
+        return redirect('posts');
+    }
 }

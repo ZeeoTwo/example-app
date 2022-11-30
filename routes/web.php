@@ -20,5 +20,7 @@ Route::get('about-us', [SiteController::class, 'about'])->name('about-us');
 Route::get('laravel-help', [SiteController::class, 'help'])->name('laravel-help');
 
 Route::get('posts', [PublicationController::class, 'index'])->name('posts');
+Route::post('post', [PublicationController::class, 'store'])->name('posts.store');
+Route::get('post/create', [PublicationController::class, 'create'])->name('posts.create');
 Route::get('post/{publication}', [PublicationController::class, 'show'])->name('post.view');
 
