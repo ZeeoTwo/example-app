@@ -18,7 +18,8 @@ class PublicationController extends Controller
     public function show(Publication $publication)
     {
         return view('post.view', [
-            'post' => $publication
+            'post' => $publication,
+            'comments' => $publication->comments
         ]);
     }
 

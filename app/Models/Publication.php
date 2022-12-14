@@ -21,7 +21,13 @@ class Publication extends Model
         'author_id'
     ];
 
-    public function author(){
+    public function author()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments(){
+
+        return $this->hasMany(Comment::class, 'post_id');
     }
 }
