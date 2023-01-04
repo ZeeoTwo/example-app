@@ -41,4 +41,41 @@ class PublicationController extends Controller
         $newPost->save();
         return redirect('posts');
     }
+
+
+    public function edit(Publication $publication)
+    {
+        $users = User::all();
+
+        return view('post.form', [
+            'users' => $users,
+            'post' => $publication
+        ]);
+    }
+
+
+    public function update(Publication $publication, Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'author_id' => 'required'
+        ]);
+        $publication->fill($data);
+        $publication->save();
+
+        return redirect()->route('post.view', [
+            'publication' => $publication->id
+        ])->with('success', 'Zmiany zapisane');
+    }
+
+
+    public function destroy(Publication $publication)
+    {
+        $publication->comments()->delete();
+        $publication->delete();
+        return redirect()->route('post');
+    }
+
+
 }

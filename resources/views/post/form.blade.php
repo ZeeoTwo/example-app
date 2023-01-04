@@ -1,15 +1,34 @@
 @extends('layouts.app')
 
+@php
+    $action = route('posts.store');
+    $title = null;
+    $content = null;
+    $author_id = null;
+
+if (isset($post)) {
+        $action = route('posts.update', ['publication' => $post->id]);
+        $title = $post->title;
+        $content = $post->content;
+        $author_id = $post->author_id;
+    }
+
+
+
+@endphp
+
+
 @section('content')
         <h1 class="text-red-700 text-center"> Stworz nową publikację </h1>
 
-        <form action="{{route('posts.store')}}" method="POST">
+        <form action="{{ $action }}" method="POST">
         @csrf
-        <p class="text-amber-400">Title:</p><input type="text" name="title">
-        <p class="text-amber-400">Content:</p><textarea name="content" cols="20" rows="1"></textarea>
+        <p class="text-amber-400">Title:</p><input type="text" name="title" placeholder="Tytuł" value="{{ $title }}">
+        <p class="text-amber-400">Content:</p><textarea name="content" cols="20" rows="1" placeholder="Treść...">{{ $content }}</textarea>
         <p class="text-amber-400">User:</p><select name="author_id">
         @foreach ($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
+            <option {{ $author_id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+
         @endforeach
         </select>
         </br>

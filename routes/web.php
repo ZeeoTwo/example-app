@@ -19,8 +19,12 @@ Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('about-us', [SiteController::class, 'about'])->name('about-us');
 Route::get('laravel-help', [SiteController::class, 'help'])->name('laravel-help');
 
-Route::get('posts', [PublicationController::class, 'index'])->name('posts');
+Route::get('posts', [PublicationController::class, 'index'])->name('post');
 Route::post('post', [PublicationController::class, 'store'])->name('posts.store');
 Route::get('post/create', [PublicationController::class, 'create'])->name('posts.create');
 Route::get('post/{publication}', [PublicationController::class, 'show'])->name('post.view');
+
+Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit');
+Route::post('post/{publication}', [PublicationController::class, 'update'])->name('posts.update');
+Route::delete('post/{publication}', [PublicationController::class, 'destroy'])->name('posts.delete');
 

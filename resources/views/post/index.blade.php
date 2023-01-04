@@ -11,7 +11,13 @@
             Publikacja nr {{ $index + 1 }}: {{$pub['title'] }}
         </a>
     </h2>
-        <p>Autor: {{ $pub['author']->name }}</p>
+
+    
+        @if ($pub['author']->deleted_at)
+        <s class="text-emerald-600 text-left">Autor: {{ $pub['author']->name }}</s>
+        @else
+        <p class="text-emerald-600 text-left">Autor: {{ $pub['author']->name }}</p>
+        @endif
     @endforeach
 
 

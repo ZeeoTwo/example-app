@@ -23,7 +23,8 @@ class Publication extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id')->withTrashed();
+
     }
 
     public function comments(){
