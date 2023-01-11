@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+@auth
 <a href="{{ route('posts.edit', ['publication' => $post->id]) }}">Edytuj</a>
 <form action="{{ route('posts.delete', ['publication' => $post->id]) }}" method="POST">
     @csrf
     @method('DELETE')
     <button type="submit">Usuń</button>
 </form>
+@endauth
 <p class="text-red-700 text-center"> Tytul: {{ $post['title'] }}</p>
 <p class="text-yellow-600 text-center">{{ $post['content'] }}</p>
 <p class="text-emerald-600 text-left">Autor: {{ $post['author']->name }}</p>
