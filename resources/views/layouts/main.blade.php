@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{asset('../resources/css/app.css')}}">
     <title>Home</title>
 </head>
 
-<body>
+<body class="bg-slate-800">
+
     @yield('content')
+
 </body>
+
 
 </html>

@@ -6,12 +6,7 @@
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
     <title>Postownik</title>
 </head>
-<body class="bg-slate-800 font-mono">
-
-    {{-- zrob tutaj pasek po lewej od homa --}}
-    <div>
-    </div>
-
+<body class="bg-slate-800">
     @auth
     <div class="fixed top-0 right-0">
     <p class="text-amber-800">Witaj: {{Auth::user()->name}}</p>
@@ -23,7 +18,6 @@
     @else
     <a href="{{route('login')}}"></a>
     @endauth
-
 
 
     @yield('content')
