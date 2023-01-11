@@ -25,12 +25,13 @@ if (isset($post)) {
         @csrf
         <p class="text-amber-400">Title:</p><input type="text" name="title" placeholder="Tytuł" value="{{ $title }}">
         <p class="text-amber-400">Content:</p><textarea name="content" cols="20" rows="1" placeholder="Treść...">{{ $content }}</textarea>
-        <p class="text-amber-400">User:</p><select name="author_id">
+        {{-- <p class="text-amber-400">User:</p>
+         <select name="author_id">
         @foreach ($users as $user)
             <option {{ $author_id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
 
         @endforeach
-        </select>
+        </select> --}}
         </br>
         </br>
         <input class="text-amber-400 border-2 border-solid border-amber-400 rounded-lg cursor-pointer" type="submit" value="Submit">

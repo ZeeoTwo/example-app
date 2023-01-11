@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,13 @@ Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('about-us', [SiteController::class, 'about'])->name('about-us');
 Route::get('laravel-help', [SiteController::class, 'help'])->name('laravel-help');
 
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::post('login', [LoginController::class, 'login'])->name('auth.login');
+Route::post('logout', [LoginController::class, 'logout'])->name('auth.logout');
+
 Route::get('posts', [PublicationController::class, 'index'])->name('post');
 Route::post('post', [PublicationController::class, 'store'])->name('posts.store');
-Route::get('post/create', [PublicationController::class, 'create'])->name('posts.create');
+Route::get('post/create', [PublicationController::class, 'create'])->name('posts.create')->middleware('auth');
 Route::get('post/{publication}', [PublicationController::class, 'show'])->name('post.view');
 
 Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit');

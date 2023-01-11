@@ -35,9 +35,10 @@ class PublicationController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'author_id' => 'required'
+            // 'author_id' => 'required'
         ]);
         $newPost = new Publication($data);
+        $newPost->author_id = $request->user()->id;
         $newPost->save();
         return redirect('posts');
     }
