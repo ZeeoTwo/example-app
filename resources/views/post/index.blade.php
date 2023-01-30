@@ -5,7 +5,7 @@
 
     @auth
     @else
-    <a class="fixed top-0 right-0 text-red-700 border-2 border-solid border-red-700 rounded-lg cursor-pointer" href="{{ route('login') }}">Login </a>
+    <a class="top-0 right-0 text-red-700 border-2 border-solid border-red-700 rounded-lg cursor-pointer" href="{{ route('login') }}">Login </a>
     @endauth
     <a class="text-red-700 border-2 border-solid border-red-700 rounded-lg cursor-pointer" href="{{ route('posts.create') }}">Dodaj Post </a>
 

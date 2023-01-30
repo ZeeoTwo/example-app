@@ -9,6 +9,8 @@
 
 <body class="bg-slate-800">
 
+
+
     @yield('content')
 
 </body>
