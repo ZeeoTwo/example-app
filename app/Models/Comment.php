@@ -12,7 +12,6 @@ class Comment extends Model
         'content_comment',
         'author_id',
         'post_id',
-        'title_comment'
     ];
     public function author()
     {

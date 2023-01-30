@@ -5,12 +5,13 @@
     $title = null;
     $content = null;
     $author_id = null;
-
+    $header = "Dodaj Publikację";
 if (isset($post)) {
         $action = route('posts.update', ['publication' => $post->id]);
         $title = $post->title;
         $content = $post->content;
         $author_id = $post->author_id;
+        $header = "Edytuj Publikację";
     }
 
 
@@ -19,7 +20,7 @@ if (isset($post)) {
 
 
 @section('content')
-        <h1 class="text-red-700 text-center"> Stworz nową publikację </h1>
+        <h1 class="text-red-700 text-center"> {{$header}} </h1>
 
         <form action="{{ $action }}" method="POST">
         @csrf
@@ -28,7 +29,7 @@ if (isset($post)) {
         {{-- <p class="text-amber-400">User:</p>
          <select name="author_id">
         @foreach ($users as $user)
-            <option {{ $author_id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
+            <option {{ $author_id == $user->id ? 'seelectd' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
 
         @endforeach
         </select> --}}

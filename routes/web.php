@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SiteController;
@@ -29,7 +30,12 @@ Route::post('post', [PublicationController::class, 'store'])->name('posts.store'
 Route::get('post/create', [PublicationController::class, 'create'])->name('posts.create')->middleware('auth');
 Route::get('post/{publication}', [PublicationController::class, 'show'])->name('post.view');
 
-Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit');
+Route::post('post/{publication}/comment', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+
+
+Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit')->middleware('auth');
 Route::post('post/{publication}', [PublicationController::class, 'update'])->name('posts.update');
 Route::delete('post/{publication}', [PublicationController::class, 'destroy'])->name('posts.delete');
+
+
 

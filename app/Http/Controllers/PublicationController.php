@@ -32,12 +32,16 @@ class PublicationController extends Controller
 
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
             // 'author_id' => 'required'
         ]);
         $newPost = new Publication($data);
+        // if ($request->user()->id !== $newPost->user_id) {
+        //     abort(404);
+        // }
         $newPost->author_id = $request->user()->id;
         $newPost->save();
         return redirect('posts');
@@ -65,14 +69,20 @@ class PublicationController extends Controller
         $publication->fill($data);
         $publication->save();
 
+        // if ($request->user()->id !== $publication->user_id) {
+        //     abort(404);
+        // }
         return redirect()->route('post.view', [
             'publication' => $publication->id
         ])->with('success', 'Zmiany zapisane');
     }
 
 
-    public function destroy(Publication $publication)
+    public function destroy(Publication $publication,Request $request)
     {
+        // if ($request->user()->id !== $publication->user_id) {
+        //     abort(404);
+        // }
         $publication->comments()->delete();
         $publication->delete();
         return redirect()->route('post');
