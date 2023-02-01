@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 @auth
     @if (auth()->user()->id == $post->author_id)
     <a href="{{ route('posts.edit', ['publication' => $post->id]) }}">Edytuj</a>
@@ -19,12 +21,30 @@
 
         <div class="text-center space-y-7 mx-64 my-5">
             Komentarze: 
-                @foreach ($post->comments as $comment)
-                <div class="border-solid border-2">
+                @foreach ($post->comments()->withTrashed()->get() as $comment)
+                @if ($comment->deleted_at == NULL)
+                    <div class="border-solid border-2">
                     <p class="">{{$comment->author->name}}</p>
                     <p class="">{{$comment->content_comment}}</p>
                     <p class="">{{$comment->created_at}}</p>
+                    @if (auth()->user()->id == $comment->author_id)
+                    <form action="{{route("comments.delete", ['comment' => $comment])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Usuń</button>
+                    </form>
+                    @endif
+                @else
+                    <div class="border-solid border-2 border-red-800">
+                    <p class="">{{$comment->author->name}}</p>
+                    <p class="">{{$comment->content_comment}}</p>
+                    <p class="">{{$comment->created_at}}</p>
+                    <p class="text-sm opacity-25">Komentarz Został Usunięty</p>
+                @endif
+                
+                
                 </div>
+
                 @endforeach
         </div>
 

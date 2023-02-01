@@ -39,9 +39,6 @@ class PublicationController extends Controller
             // 'author_id' => 'required'
         ]);
         $newPost = new Publication($data);
-        // if ($request->user()->id !== $newPost->user_id) {
-        //     abort(404);
-        // }
         $newPost->author_id = $request->user()->id;
         $newPost->save();
         return redirect('posts');
@@ -51,7 +48,7 @@ class PublicationController extends Controller
     public function edit(Publication $publication)
     {
         $users = User::all();
-
+        
         return view('post.form', [
             'users' => $users,
             'post' => $publication
@@ -64,14 +61,14 @@ class PublicationController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'author_id' => 'required'
         ]);
         $publication->fill($data);
         $publication->save();
 
-        // if ($request->user()->id !== $publication->user_id) {
-        //     abort(404);
-        // }
+        if ($request->user()->id !== $publication->author_id) {
+            abort(404);
+        }
+
         return redirect()->route('post.view', [
             'publication' => $publication->id
         ])->with('success', 'Zmiany zapisane');
@@ -80,9 +77,9 @@ class PublicationController extends Controller
 
     public function destroy(Publication $publication,Request $request)
     {
-        // if ($request->user()->id !== $publication->user_id) {
-        //     abort(404);
-        // }
+        if ($request->user()->id !== $publication->author_id) {
+            abort(404);
+        }
         $publication->comments()->delete();
         $publication->delete();
         return redirect()->route('post');

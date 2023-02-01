@@ -21,8 +21,9 @@ return new class extends Migration
             $table->foreign('author_id')->references('id')->on('users');
             $table->unsignedBigInteger('post_id');
             $table->index('post_id');
-            $table->foreign('post_id')->references('id')->on('publications');
+            $table->foreign('post_id')->references('id')->on('publications')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes()->nullable();
         });
     }
 

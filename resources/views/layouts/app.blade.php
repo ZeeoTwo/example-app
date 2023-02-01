@@ -14,6 +14,15 @@
     
     <div class="drawer-content">
         <!-- Page content here -->
+        @if ($message = Session::get('success'))
+          <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700" role="alert">
+              <i class="bi bi-check w-5 h-5 inline mr-1"></i>
+              <div>
+                  {{ $message }}
+              </div>
+          </div>
+        @endif
+
         @auth
       <div class="absolute top-0 right-0">
       <p class="text-amber-800">Witaj: {{Auth::user()->name}}</p>

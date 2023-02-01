@@ -31,6 +31,7 @@ Route::get('post/create', [PublicationController::class, 'create'])->name('posts
 Route::get('post/{publication}', [PublicationController::class, 'show'])->name('post.view');
 
 Route::post('post/{publication}/comment', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::delete('post/comment/{comment}', [CommentController::class, 'destroy'])->name('comments.delete');
 
 
 Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit')->middleware('auth');
