@@ -13,6 +13,7 @@ class Comment extends Model
         'content_comment',
         'author_id',
         'post_id',
+        'parent_id',
     ];
     public function author()
     {
@@ -21,5 +22,14 @@ class Comment extends Model
     public function publication()
     {
         return $this->belongsTo(Publication::class, 'post_id');
+    }
+
+    public function reply()
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+    public function child()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 }

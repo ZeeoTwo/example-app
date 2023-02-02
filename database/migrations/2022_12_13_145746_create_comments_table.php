@@ -22,6 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('post_id');
             $table->index('post_id');
             $table->foreign('post_id')->references('id')->on('publications')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable()->default(null);
+            $table->index('parent_id');
+            $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes()->nullable();
         });

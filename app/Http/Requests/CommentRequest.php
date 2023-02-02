@@ -16,7 +16,8 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content_comment'=>'required|string|max:50'
+            'content_comment'=>'required|string|max:50',
+            'parent_id'=>'string|nullable'
         ];
     }
 }
