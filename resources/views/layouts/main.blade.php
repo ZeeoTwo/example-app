@@ -7,9 +7,7 @@
     <title>Home</title>
 </head>
 
-<body class="bg-slate-800">
-
-
+<body>
 
     @yield('content')
 

@@ -25,42 +25,18 @@
             Komentarze: 
                 </br>
                 @php
-                // dd($comments);
                 $comments = $post->comments()->withTrashed()->get();
                 //! SRAM NA TO
-                function childs($parent, $childs ){
-                    
-                }
-
-                $view = collect();
-
-                foreach($comments as $comment){
-
-                        echo ("</br>" . "ID: ". $comment->id. "Parent " . $comment->reply);
-                        $childrens = $comment->child;
-                        childs($comment,$comment->child);
-                        //var_dump($comments->search($comment));
-
-                        //foreach($childrens as $child){
-                        //    echo($comments->search($child));
-                        //}
-                        //$view->push($comment);
-
-                        //$view->push($childrens);
-                        
-                        //$comments = $comments->diff($comment);
-                        
-                }
 
                 @endphp
 
                 @foreach ($post->comments()->withTrashed()->get() as $comment)
                 @if ($comment->deleted_at == NULL)
                     <div class="border-solid border-2">
-                    <p class="">{{$comment->author->name}}</p>
+                    <p class="">{{$comment->author->name}} ID:{{$comment->id}}</p>
                     <p class="">{{$comment->content_comment}}</p>
                     <p class="">{{$comment->created_at}}</p>
-                    <p class="">{{$comment->parent_id}}</p>
+                    <p class="">Parent ID: {{$comment->parent_id}}</p>
                     <button class="reply" value="{{$comment->id}}" >Odpowiedz</button>
                     
                     @if (auth()->user()->id == $comment->author_id)

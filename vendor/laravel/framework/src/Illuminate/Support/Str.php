@@ -14,6 +14,7 @@ use Ramsey\Uuid\Codec\TimestampFirstCombCodec;
 use Ramsey\Uuid\Generator\CombGenerator;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactory;
+use Symfony\Component\Uid\Ulid;
 use Traversable;
 use voku\helper\ASCII;
 
@@ -338,6 +339,18 @@ class Str
     }
 
     /**
+     * Wrap the string with the given strings.
+     *
+     * @param  string  $before
+     * @param  string|null  $after
+     * @return string
+     */
+    public static function wrap($value, $before, $after = null)
+    {
+        return $before.$value.($after ??= $before);
+    }
+
+    /**
      * Determine if a given string matches a given pattern.
      *
      * @param  string|iterable<string>  $pattern
@@ -422,6 +435,21 @@ class Str
         }
 
         return preg_match('/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iD', $value) > 0;
+    }
+
+    /**
+     * Determine if a given string is a valid ULID.
+     *
+     * @param  string  $value
+     * @return bool
+     */
+    public static function isUlid($value)
+    {
+        if (! is_string($value)) {
+            return false;
+        }
+
+        return Ulid::isValid($value);
     }
 
     /**
@@ -986,7 +1014,7 @@ class Str
      * @param  string|null  $language
      * @return string
      */
-    public static function slug($title, $separator = '-', $language = 'en')
+    public static function slug($title, $separator = '-', $language = 'en', $dictionary = ['@' => 'at'])
     {
         $title = $language ? static::ascii($title, $language) : $title;
 
@@ -995,10 +1023,14 @@ class Str
 
         $title = preg_replace('!['.preg_quote($flip).']+!u', $separator, $title);
 
-        // Replace @ with the word 'at'
-        $title = str_replace('@', $separator.'at'.$separator, $title);
+        // Replace dictionary words
+        foreach ($dictionary as $key => $value) {
+            $dictionary[$key] = $separator.$value.$separator;
+        }
 
-        // Remove all characters that are not the separator, letters, numbers, or whitespace.
+        $title = str_replace(array_keys($dictionary), array_values($dictionary), $title);
+
+        // Remove all characters that are not the separator, letters, numbers, or whitespace
         $title = preg_replace('![^'.preg_quote($separator).'\pL\pN\s]+!u', '', static::lower($title));
 
         // Replace all separator characters and whitespace by a single separator
@@ -1304,6 +1336,16 @@ class Str
     public static function createUuidsNormally()
     {
         static::$uuidFactory = null;
+    }
+
+    /**
+     * Generate a ULID.
+     *
+     * @return \Symfony\Component\Uid\Ulid
+     */
+    public static function ulid()
+    {
+        return new Ulid();
     }
 
     /**

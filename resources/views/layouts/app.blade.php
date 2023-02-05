@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.43.2/dist/full.css" rel="stylesheet" type="text/css" />
     <title>Postownik</title>
 </head>
-<body class="bg-slate-800">
+<body class="">
     <div class="drawer">
     
     <input id="my-drawer" type="checkbox" class="drawer-toggle " />
@@ -35,12 +35,13 @@
       <a href="{{route('login')}}"></a>
       @endauth
       
+
       <label for="my-drawer" class="flex rounded-r-lg bg-white h-32 w-6 cursor-pointer mt-80 "></label>
     </div> 
     <div class="drawer-side ">
       <label for="my-drawer" class="drawer-overlay"></label>
       
-      <ul class="menu p-4 w-40 bg-slate-800 ">
+      <ul class="menu p-4 w-40 bg-slate-800">
         
         <!-- Sidebar content here -->
         <li > <a  href="{{ route('home') }}">  Home </a>  </li>
@@ -53,7 +54,7 @@
   </div>
 
     <div class="absolute text-center top-32 right-2/4 transform translate-x-1/2 ">
-@yield('content')
+      @yield('content')
   </div>
 </body>
 </html>
