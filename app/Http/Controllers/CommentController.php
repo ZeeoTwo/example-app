@@ -26,6 +26,7 @@ class CommentController extends Controller
     public function destroy(Comment $comment,Request $request){
 
         $post_id = $comment->post_id;
+        $comment->replies()->delete();
         $comment->delete();
         return redirect()->route('post.view', ['publication' => $post_id])->with('success','Usunięto Komentarz');
     }

@@ -24,14 +24,15 @@
         <div class="text-center space-y-7 mx-64 my-5">
             Komentarze: 
                 </br>
+                
                 @php
                 $comments = $post->comments()->withTrashed()->get();
-                //! SRAM NA TO
-
                 @endphp
 
+                    
                 @foreach ($post->comments()->withTrashed()->get() as $comment)
-                @if ($comment->deleted_at == NULL)
+                {{-- @if ($comment->deleted_at == NULL)
+                   
                     <div class="border-solid border-2">
                     <p class="">{{$comment->author->name}} ID:{{$comment->id}}</p>
                     <p class="">{{$comment->content_comment}}</p>
@@ -54,9 +55,11 @@
                     <p class="">{{$comment->created_at}}</p>
                     <p class="text-sm opacity-25">Komentarz Został Usunięty</p>
                 @endif
-                
-                
-                </div>
+                </div> --}}
+
+                @if (!($comment->hasParent()))
+                    <x-comment :comment="$comment"/>
+                @endif
 
                 @endforeach
         </div>

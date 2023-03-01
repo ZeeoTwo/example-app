@@ -24,12 +24,17 @@ class Comment extends Model
         return $this->belongsTo(Publication::class, 'post_id');
     }
 
-    public function reply()
+    public function parent()
     {
         return $this->belongsTo(Comment::class, 'parent_id');
     }
-    public function child()
+    public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
+    public function hasParent()
+    {
+        return $this->parent_id;
+    }
+
 }
