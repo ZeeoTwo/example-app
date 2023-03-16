@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
 use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,13 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $publicationIds = Publication::pluck('id')->toArray();
-        $parentId = $this->faker->boolean(70) ? Arr::random($publicationIds) : null;
+        $commentIds = Comment::pluck('id')->toArray();
+        $parentId = count($commentIds) > 0 && $this->faker->boolean(50) ? Arr::random($commentIds) : null;
+        if (is_null($parentId)) {
+            $commentIds[] = null;
+            $parentId = null;
+        }
+
         return [
             'content_comment' => $this->faker->words(3, true),
             'author_id' => User::all()->random()->id,
