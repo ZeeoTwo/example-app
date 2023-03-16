@@ -26,11 +26,10 @@ class CommentFactory extends Factory
             $commentIds[] = null;
             $parentId = null;
         }
-
         return [
             'content_comment' => $this->faker->words(3, true),
-            'author_id' => User::all()->random()->id,
-            'post_id' => Publication::all()->random()->id,
+            'author_id' => User::all()->random()->getAttribute('id'),
+            'post_id' => Publication::all()->random()->getAttribute('id'),
             'parent_id'=> $parentId,
         ];
     }
