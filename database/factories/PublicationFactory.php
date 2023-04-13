@@ -21,7 +21,7 @@ class PublicationFactory extends Factory
         return [
             'title' => $this->faker->words(3, true),
             'content' => $this->faker->text(),
-            'author_id' => User::all()->random()->id
+            'author_id' => User::all()->random()->getAttribute('id')
             ];
 
     }

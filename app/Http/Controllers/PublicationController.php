@@ -10,7 +10,7 @@ class PublicationController extends Controller
 {
     public function index()
     {
-        $publications = Publication::orderBy('created_at', 'desc')->get();
+        $publications = Publication::orderBy('created_at', 'desc')->paginate(10);
 
         return view('post.index', ['publications' => $publications]);
     }
@@ -19,7 +19,7 @@ class PublicationController extends Controller
     {
         return view('post.view', [
             'post' => $publication,
-            'comments' => $publication->comments
+            'comments' => $publication->getAttribute('comments')
         ]);
     }
 
