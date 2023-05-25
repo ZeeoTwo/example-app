@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class LoginController extends Controller
 {
@@ -31,7 +32,6 @@ class LoginController extends Controller
             'login' => 'Login lub hasło nie są poprawne'
         ]);
     }
-
     public function logout(Request $request)
     {
         Auth::logout();

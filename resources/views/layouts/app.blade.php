@@ -34,7 +34,21 @@
       @else
       <a href="{{route('login')}}"></a>
       @endauth
-      
+
+      {{-- @php
+          $token = null;
+          if (Auth::check()) {
+              $token = Auth::user()->tokens()->where('name', Auth::user()->name)->first();
+          }
+      @endphp --}}
+{{-- 
+      @auth
+        @if (!$token)
+            <a class=" top-0 left-0 text-red-700 border-2 border-solid border-red-700 rounded-lg cursor-pointer" href="{{ route('token') }}">Generate Token </a>
+        @else
+            <a class='top-0 left-0 text-red-700 border-2 border-solid border-red-700 rounded-lg cursor-pointer'>{{$token->plainTextToken}}</a>
+        @endif
+      @endauth --}}
 
       <label for="my-drawer" class="flex rounded-r-lg bg-white h-32 w-6 cursor-pointer mt-80 "></label>
     </div> 

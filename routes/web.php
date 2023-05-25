@@ -4,7 +4,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ApiPublicationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,3 @@ Route::delete('post/comment/{comment}', [CommentController::class, 'destroy'])->
 Route::get('post/{publication}/edit', [PublicationController::class, 'edit'])->name('posts.edit')->middleware('auth');
 Route::post('post/{publication}', [PublicationController::class, 'update'])->name('posts.update');
 Route::delete('post/{publication}', [PublicationController::class, 'destroy'])->name('posts.delete');
-
-
-
